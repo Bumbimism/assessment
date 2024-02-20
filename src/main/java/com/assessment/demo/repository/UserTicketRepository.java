@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package com.assessment.demo.repository;
 
-import com.example.demo.entity.UserTicket;
+import com.assessment.demo.entity.UserTicket;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserTicketRepository extends JpaRepository<UserTicket,Long> {
