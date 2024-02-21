@@ -6,7 +6,9 @@ import com.assessment.demo.repository.LotteryRepository;
 import com.assessment.demo.repository.UserTicketRepository;
 import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.response.LotteryResponse;
+import com.assessment.demo.response.UserLotteryResponse;
 import com.assessment.demo.service.LotteryApiService;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.nio.file.Paths.get;
 
 @Service
 public class LotteryServiceImpl implements LotteryApiService {
@@ -48,7 +52,12 @@ public class LotteryServiceImpl implements LotteryApiService {
         object.put("tickets", listLotteries);
         object.put("count", count);
         object.put("cost", cost);
-        return object;
+        ;
+        List<String> tickets = (List<String>) object.get("tickets");
+        int countTickets = (int) object.get("count");
+        int costTickets = (int) object.get("cost");
+
+        return new UserLotteryResponse(tickets, countTickets,costTickets);
     }
 
     @Override
