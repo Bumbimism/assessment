@@ -1,7 +1,8 @@
 package com.assessment.demo.service;
 
 import java.util.List;
+import java.util.Map;
 
 public class LotteryListResponse {
-    List<String> tickets;
+    List<Map<String,Object>> tickets;
 }

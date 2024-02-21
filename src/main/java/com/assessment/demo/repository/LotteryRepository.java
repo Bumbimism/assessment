@@ -7,9 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LotteryRepository extends CrudRepository<Lottery,String> {
 List<Lottery> findAll();
-    @Query("SELECT ticketid from Lottery")
-    List<Object> findAllLotteries();
+//    @Query("SELECT ticketid from Lottery")
+//    List<Object> findAllLotteries();
+@Query(value = "SELECT DISTINCT lottery.ticketid FROM lottery", nativeQuery = true)
+List<Map<String,String>> findAllLotteries();
 }
