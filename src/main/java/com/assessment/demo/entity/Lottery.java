@@ -1,9 +1,8 @@
 package com.assessment.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
@@ -11,7 +10,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 public class Lottery {
     @Id
     @Column(name="ticketid")
-    private Long ticketid;
+    @JsonProperty("ticket")
+    private String ticketid;
     private int price;
     private int amount;
 

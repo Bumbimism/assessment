@@ -6,10 +6,12 @@ import com.assessment.demo.exception.UserTicketException;
 import com.assessment.demo.repository.LotteryRepository;
 import com.assessment.demo.repository.UserTicketRepository;
 import com.assessment.demo.service.LotteryApiService;
+import com.assessment.demo.service.LotteryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class LotteryServiceImpl implements LotteryApiService {
@@ -20,26 +22,40 @@ public class LotteryServiceImpl implements LotteryApiService {
     private UserTicketRepository userTicketRepository;
 
     @Override
-    public String createLottery(Lottery lottery){
+    public LotteryResponse createLottery(Lottery lottery) {
         lotteryRepository.save(lottery);
-        return "successfully CREATE";
+        return new LotteryResponse(lottery.getTicketid());
+
     }
 
     @Override
-    public String updateLottery(Lottery lottery){
+    public String updateLottery(Lottery lottery) {
         lotteryRepository.save(lottery);
         return "successfully UPDATED";
     }
 
     @Override
-    public List<Lottery> getAllLotteries(){
-        return lotteryRepository.findAll();
+    public List<LotteryResponse> getAllLotteries() {
+        return lotteryRepository.findAll().getTicketid();
     }
 
+    @Override
     public UserTicket getLotteries(String userid) {
-        if(userTicketRepository.findByUserid(userid) == null)
+        if (userTicketRepository.findByUserid(userid) == null)
             throw new UserTicketException("this UserId is not available");
 
         return userTicketRepository.findByUserid(userid);
+    }
+
+    @Override
+    public UserTicket buyLotteries(String userid, String ticketid){
+        UserTicket userTicket = new UserTicket();
+        userTicket.setUserid(userid);
+        userTicket.setTicketid(ticketid);
+
+        userTicketRepository.save(userTicket);
+        return userTicketRepository.findByUserid(userid);
+
+
     }
 }
