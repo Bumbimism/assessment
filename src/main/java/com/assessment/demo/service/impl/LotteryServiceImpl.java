@@ -2,12 +2,11 @@ package com.assessment.demo.service.impl;
 
 import com.assessment.demo.entity.Lottery;
 import com.assessment.demo.entity.UserTicket;
-import com.assessment.demo.exception.UserTicketException;
 import com.assessment.demo.repository.LotteryRepository;
 import com.assessment.demo.repository.UserTicketRepository;
-import com.assessment.demo.service.IdResponse;
+import com.assessment.demo.response.IdResponse;
 import com.assessment.demo.service.LotteryApiService;
-import com.assessment.demo.service.LotteryResponse;
+import com.assessment.demo.response.LotteryResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class LotteryServiceImpl implements LotteryApiService {
@@ -48,9 +46,12 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
+    public List<String> getLotteries(String userid) {
 
-    public List<UserTicket> getLotteries(String userid) {
-        return userTicketRepository.findByUserid(userid);
+
+
+
+        return userTicketRepository.findTicketsByUserid(userid);
     }
 
     @Override

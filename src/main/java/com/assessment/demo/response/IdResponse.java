@@ -1,10 +1,10 @@
-package com.assessment.demo.service;
+package com.assessment.demo.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class IdResponse {
 
-    public String id;
+    private String id;
 
     public IdResponse(String id) {
         this.id = id;

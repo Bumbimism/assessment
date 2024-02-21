@@ -1,10 +1,10 @@
 package com.assessment.demo.service;
 
 import com.assessment.demo.entity.Lottery;
-import com.assessment.demo.entity.UserTicket;
+import com.assessment.demo.response.IdResponse;
+import com.assessment.demo.response.LotteryResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface LotteryApiService {
     public LotteryResponse createLottery(Lottery lottery);
@@ -13,7 +13,7 @@ public interface LotteryApiService {
 
     public Object getAllLotteries();
 
-    public List<UserTicket> getLotteries(String userid);
+    public List<String> getLotteries(String userid);
 
     public IdResponse buyLotteries(String userid, String ticketid);
 

@@ -1,10 +1,9 @@
 package com.assessment.demo.controller;
 
 import com.assessment.demo.entity.Lottery;
-import com.assessment.demo.entity.UserTicket;
-import com.assessment.demo.service.IdResponse;
+import com.assessment.demo.response.IdResponse;
 import com.assessment.demo.service.LotteryApiService;
-import com.assessment.demo.service.LotteryResponse;
+import com.assessment.demo.response.LotteryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +28,9 @@ public class LotteryController {
 
     @GetMapping("/users/{userId}/lotteries")
     public Object getLotteries(@PathVariable("userId") String userId) {
-        List<UserTicket> objectToReturn = lotteryApiService.getLotteries(userId);
+        List<String> myLotteries = lotteryApiService.getLotteries(userId);
 
-        return objectToReturn;
+        return myLotteries;
 
 
     }

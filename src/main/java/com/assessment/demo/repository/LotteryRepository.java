@@ -13,6 +13,6 @@ public interface LotteryRepository extends CrudRepository<Lottery,String> {
 List<Lottery> findAll();
 //    @Query("SELECT ticketid from Lottery")
 //    List<Object> findAllLotteries();
-@Query(value = "SELECT DISTINCT lottery.ticketid FROM lottery", nativeQuery = true)
+@Query(value = "SELECT lottery.ticketid FROM lottery", nativeQuery = true)
 List<String> findAllLotteries();
 }

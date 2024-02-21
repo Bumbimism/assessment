@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserTicketRepository extends JpaRepository<UserTicket, String> {
-
-    List<UserTicket> findByUserid(String userid);
+@Query(value = "SELECT user_ticket.ticketid FROM user_ticket where userid = :userid", nativeQuery = true)
+    List<String> findTicketsByUserid(String userid);
 }
