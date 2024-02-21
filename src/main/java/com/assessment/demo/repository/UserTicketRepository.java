@@ -2,8 +2,11 @@ package com.assessment.demo.repository;
 
 import com.assessment.demo.entity.UserTicket;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-public interface UserTicketRepository extends JpaRepository<UserTicket, Long> {
+import java.util.List;
+
+public interface UserTicketRepository extends JpaRepository<UserTicket, String> {
 
     UserTicket findByUserid(String userid);
 }

@@ -14,6 +14,6 @@ public interface LotteryApiService {
     public Object getAllLotteries();
 
     public UserTicket getLotteries(String userid);
-    public UserTicket buyLotteries(String userid, String ticketid);
+    public IdResponse buyLotteries(String userid, String ticketid);
 
 }

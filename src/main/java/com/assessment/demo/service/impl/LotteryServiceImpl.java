@@ -5,8 +5,10 @@ import com.assessment.demo.entity.UserTicket;
 import com.assessment.demo.exception.UserTicketException;
 import com.assessment.demo.repository.LotteryRepository;
 import com.assessment.demo.repository.UserTicketRepository;
+import com.assessment.demo.service.IdResponse;
 import com.assessment.demo.service.LotteryApiService;
 import com.assessment.demo.service.LotteryResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,13 +55,14 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
-    public UserTicket buyLotteries(String userid, String ticketid) {
+    @Transactional
+    public IdResponse buyLotteries(String userid, String ticketid) {
         UserTicket userTicket = new UserTicket();
         userTicket.setUserid(userid);
         userTicket.setTicketid(ticketid);
 
         userTicketRepository.save(userTicket);
-        return userTicketRepository.findByUserid(userid);
+        return new IdResponse(userTicket.getId().toString());
 
 
     }
