@@ -7,16 +7,10 @@ import com.assessment.demo.response.LotteryResponse;
 import java.util.List;
 
 public interface LotteryApiService {
+    public Object showAllLotteries();
     public LotteryResponse createLottery(Lottery lottery);
-
-    public String updateLottery(Lottery lottery);
-
-    public Object getAllLotteries();
-
-    public Object getLotteries(String userid);
-
-    public IdResponse buyLotteries(String userid, String ticketid);
-
+    public Object showUserLotteries(String userid);
+    public IdResponse purchaseLottery(String userid, String ticketid);
     public Object refundLottery(String userid, String ticketid);
 
 }

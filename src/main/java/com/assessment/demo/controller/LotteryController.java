@@ -18,7 +18,7 @@ public class LotteryController {
 
     @GetMapping("/lotteries")
     public Object getAllLotteries() {
-        return lotteryApiService.getAllLotteries();
+        return lotteryApiService.showAllLotteries();
     }
 
     @PostMapping("/admin/lotteries")
@@ -26,22 +26,18 @@ public class LotteryController {
         return lotteryApiService.createLottery(lottery);
     }
 
-    @DeleteMapping("/users/{userId}/lotteries/{ticketId}")
-    public Object refundLottery(@PathVariable("userId")String userid,@PathVariable("ticketId")String ticketid) {
-        return lotteryApiService.refundLottery(userid, ticketid);
-    }
-
     @GetMapping("/users/{userId}/lotteries")
-    public Object getLotteries(@PathVariable("userId") String userId) {
-        return lotteryApiService.getLotteries(userId);
-
-
+    public Object showUserLotteries(@PathVariable("userId") String userId) {
+        return lotteryApiService.showUserLotteries(userId);
     }
 
     @PostMapping("/users/{userId}/lotteries/{ticketId}")
-    public IdResponse buyLotteries(@PathVariable("userId") String userid, @PathVariable("ticketId") String ticketid) {
-        return lotteryApiService.buyLotteries(userid, ticketid);
+    public IdResponse purchaseLottery(@PathVariable("userId") String userid, @PathVariable("ticketId") String ticketid) {
+        return lotteryApiService.purchaseLottery(userid, ticketid);
     }
 
-
+    @DeleteMapping("/users/{userId}/lotteries/{ticketId}")
+    public Object refundLottery(@PathVariable("userId")String userId,@PathVariable("ticketId")String ticketId) {
+        return lotteryApiService.refundLottery(userId, ticketId);
+    }
 }

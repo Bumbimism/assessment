@@ -18,6 +18,7 @@ import java.util.Map;
 
 @Service
 public class LotteryServiceImpl implements LotteryApiService {
+
     @Autowired
     private LotteryRepository lotteryRepository;
 
@@ -25,28 +26,21 @@ public class LotteryServiceImpl implements LotteryApiService {
     private UserTicketRepository userTicketRepository;
 
     @Override
-    public LotteryResponse createLottery(Lottery lottery) {
-        lotteryRepository.save(lottery);
-        return new LotteryResponse(lottery.getTicketid());
-
-    }
-
-    @Override
-    public String updateLottery(Lottery lottery) {
-        lotteryRepository.save(lottery);
-        return "successfully UPDATED";
-    }
-
-    @Override
     @ResponseBody
-    public Object getAllLotteries() {
+    public Object showAllLotteries() {
         Map<String, List<String>> object = new HashMap<>();
         object.put("tickets", lotteryRepository.findAllLotteries());
         return object;
     }
 
     @Override
-    public Object getLotteries(String userid) {
+    public LotteryResponse createLottery(Lottery lottery) {
+        lotteryRepository.save(lottery);
+        return new LotteryResponse(lottery.getTicketid());
+    }
+
+    @Override
+    public Object showUserLotteries(String userid) {
         Map<String, Object> object = new HashMap<>();
         List<String> listLotteries = userTicketRepository.findTicketsByUserid(userid);
         int count = listLotteries.size();
@@ -54,17 +48,15 @@ public class LotteryServiceImpl implements LotteryApiService {
         object.put("tickets", listLotteries);
         object.put("count", count);
         object.put("cost", cost);
-
         return object;
     }
 
     @Override
     @Transactional
-    public IdResponse buyLotteries(String userid, String ticketid) {
+    public IdResponse purchaseLottery(String userid, String ticketid) {
         UserTicket userTicket = new UserTicket();
         userTicket.setUserid(userid);
         userTicket.setTicketid(ticketid);
-
         userTicketRepository.save(userTicket);
         return new IdResponse(userTicket.getId().toString());
     }
@@ -72,16 +64,9 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Override
     @Transactional
     public Object refundLottery(String userid, String ticketid) {
-        userTicketRepository.RefundLottery(userid,ticketid);
+        userTicketRepository.RefundLottery(userid, ticketid);
         Map<String, String> object = new HashMap<>();
         object.put("tickets", ticketid);
         return object;
     }
-
-
-
-//    public List<LotteryResponse> getListLotteries() {
-//        Lotterylottery = lotteryRepository.findAll();
-//        return new LotteryResponse(lottery.getTicketid());
-//    }
 }
