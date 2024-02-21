@@ -18,12 +18,13 @@ import java.util.Map;
 
 @Service
 public class LotteryServiceImpl implements LotteryApiService {
+    private final LotteryRepository lotteryRepository;
+    private final UserTicketRepository userTicketRepository;
 
-    @Autowired
-    private LotteryRepository lotteryRepository;
-
-    @Autowired
-    private UserTicketRepository userTicketRepository;
+    public LotteryServiceImpl(LotteryRepository lotteryRepository, UserTicketRepository userTicketRepository) {
+        this.lotteryRepository = lotteryRepository;
+        this.userTicketRepository = userTicketRepository;
+    }
 
     @Override
     @ResponseBody

@@ -12,9 +12,10 @@ import java.util.List;
 @RestController
 @RequestMapping()
 public class LotteryController {
-
-    @Autowired
-    private LotteryApiService lotteryApiService;
+    private final LotteryApiService lotteryApiService;
+    public LotteryController(LotteryApiService lotteryApiService) {
+        this.lotteryApiService = lotteryApiService;
+    }
 
     @GetMapping("/lotteries")
     public Object getAllLotteries() {
