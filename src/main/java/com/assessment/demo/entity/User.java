@@ -5,8 +5,9 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="user_profile")
+@Table(name = "user_profile")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;

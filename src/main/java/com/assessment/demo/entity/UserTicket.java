@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="user_ticket")
+@Table(name = "user_ticket")
 public class UserTicket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +13,5 @@ public class UserTicket {
     private String userid;
     private String ticketid;
     private int amount;
-
 
 }
