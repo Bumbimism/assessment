@@ -13,8 +13,10 @@ public interface LotteryApiService {
 
     public Object getAllLotteries();
 
-    public List<String> getLotteries(String userid);
+    public Object getLotteries(String userid);
 
     public IdResponse buyLotteries(String userid, String ticketid);
+
+    public Object refundLottery(String userid, String ticketid);
 
 }

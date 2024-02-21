@@ -1,7 +1,9 @@
 package com.assessment.demo.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@JsonPropertyOrder({"tickets","count","cost"})
 public class MyLotteryResponse {
     @JsonProperty("tickets")
     private String ticketid;

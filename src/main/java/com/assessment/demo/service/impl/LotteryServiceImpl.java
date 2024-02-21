@@ -5,8 +5,8 @@ import com.assessment.demo.entity.UserTicket;
 import com.assessment.demo.repository.LotteryRepository;
 import com.assessment.demo.repository.UserTicketRepository;
 import com.assessment.demo.response.IdResponse;
-import com.assessment.demo.service.LotteryApiService;
 import com.assessment.demo.response.LotteryResponse;
+import com.assessment.demo.service.LotteryApiService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,12 +46,16 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
-    public List<String> getLotteries(String userid) {
+    public Object getLotteries(String userid) {
+        Map<String, Object> object = new HashMap<>();
+        List<String> listLotteries = userTicketRepository.findTicketsByUserid(userid);
+        int count = listLotteries.size();
+        int cost = count * 80;
+        object.put("tickets", listLotteries);
+        object.put("count", count);
+        object.put("cost", cost);
 
-
-
-
-        return userTicketRepository.findTicketsByUserid(userid);
+        return object;
     }
 
     @Override
@@ -63,9 +67,18 @@ public class LotteryServiceImpl implements LotteryApiService {
 
         userTicketRepository.save(userTicket);
         return new IdResponse(userTicket.getId().toString());
-
-
     }
+
+    @Override
+    @Transactional
+    public Object refundLottery(String userid, String ticketid) {
+        userTicketRepository.RefundLottery(userid,ticketid);
+        Map<String, String> object = new HashMap<>();
+        object.put("tickets", ticketid);
+        return object;
+    }
+
+
 
 //    public List<LotteryResponse> getListLotteries() {
 //        Lotterylottery = lotteryRepository.findAll();

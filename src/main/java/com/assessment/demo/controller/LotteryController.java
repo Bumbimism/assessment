@@ -26,11 +26,14 @@ public class LotteryController {
         return lotteryApiService.createLottery(lottery);
     }
 
+    @DeleteMapping("/users/{userId}/lotteries/{ticketId}")
+    public Object refundLottery(@PathVariable("userId")String userid,@PathVariable("ticketId")String ticketid) {
+        return lotteryApiService.refundLottery(userid, ticketid);
+    }
+
     @GetMapping("/users/{userId}/lotteries")
     public Object getLotteries(@PathVariable("userId") String userId) {
-        List<String> myLotteries = lotteryApiService.getLotteries(userId);
-
-        return myLotteries;
+        return lotteryApiService.getLotteries(userId);
 
 
     }
