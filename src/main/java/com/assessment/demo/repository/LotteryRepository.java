@@ -14,5 +14,5 @@ List<Lottery> findAll();
 //    @Query("SELECT ticketid from Lottery")
 //    List<Object> findAllLotteries();
 @Query(value = "SELECT DISTINCT lottery.ticketid FROM lottery", nativeQuery = true)
-List<Map<String,String>> findAllLotteries();
+List<String> findAllLotteries();
 }

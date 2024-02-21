@@ -22,7 +22,7 @@ public class LotteryController {
     private LotteryApiService lotteryApiService;
 
     @GetMapping("/lotteries")
-    public List<Map<String,String>> getAllLotteries() {
+    public Object getAllLotteries() {
         return lotteryApiService.getAllLotteries();
     }
 

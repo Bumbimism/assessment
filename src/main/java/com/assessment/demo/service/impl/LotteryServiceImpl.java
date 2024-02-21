@@ -9,7 +9,9 @@ import com.assessment.demo.service.LotteryApiService;
 import com.assessment.demo.service.LotteryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,8 +37,11 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
-    public List<Map<String,String>> getAllLotteries() {
-        return lotteryRepository.findAllLotteries();
+    @ResponseBody
+    public Object getAllLotteries() {
+        Map<String, List<String>> object = new HashMap<>();
+        object.put("tickets", lotteryRepository.findAllLotteries());
+        return object;
     }
 
     @Override
@@ -48,7 +53,7 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
-    public UserTicket buyLotteries(String userid, String ticketid){
+    public UserTicket buyLotteries(String userid, String ticketid) {
         UserTicket userTicket = new UserTicket();
         userTicket.setUserid(userid);
         userTicket.setTicketid(ticketid);
