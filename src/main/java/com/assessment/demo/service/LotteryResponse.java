@@ -2,6 +2,8 @@ package com.assessment.demo.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public class LotteryResponse {
     @JsonProperty("ticket")
     public String ticketid;

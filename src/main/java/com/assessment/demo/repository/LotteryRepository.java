@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface LotteryRepository extends CrudRepository<Lottery,String> {
 List<Lottery> findAll();
+    @Query("SELECT ticketid from Lottery")
+    List<Object> findAllLotteries();
 }

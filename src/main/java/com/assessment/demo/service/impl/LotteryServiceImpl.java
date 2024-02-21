@@ -35,8 +35,8 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
-    public List<Lottery> getAllLotteries() {
-        return lotteryRepository.findAll();
+    public List<Object> getAllLotteries() {
+        return lotteryRepository.findAllLotteries();
     }
 
     @Override
@@ -58,4 +58,9 @@ public class LotteryServiceImpl implements LotteryApiService {
 
 
     }
+
+//    public List<LotteryResponse> getListLotteries() {
+//        Lotterylottery = lotteryRepository.findAll();
+//        return new LotteryResponse(lottery.getTicketid());
+//    }
 }

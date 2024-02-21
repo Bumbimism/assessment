@@ -11,7 +11,7 @@ public interface LotteryApiService {
 
     public String updateLottery(Lottery lottery);
 
-    public List<Lottery> getAllLotteries();
+    public List<Object> getAllLotteries();
 
     public UserTicket getLotteries(String userid);
     public UserTicket buyLotteries(String userid, String ticketid);
