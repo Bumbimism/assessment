@@ -4,7 +4,7 @@ import com.assessment.demo.entity.Lottery;
 import com.assessment.demo.entity.UserTicket;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 public interface LotteryApiService {
     public LotteryResponse createLottery(Lottery lottery);
@@ -13,7 +13,8 @@ public interface LotteryApiService {
 
     public Object getAllLotteries();
 
-    public UserTicket getLotteries(String userid);
+    public List<UserTicket> getLotteries(String userid);
+
     public IdResponse buyLotteries(String userid, String ticketid);
 
 }

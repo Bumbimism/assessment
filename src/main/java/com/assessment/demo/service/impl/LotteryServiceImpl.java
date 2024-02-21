@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class LotteryServiceImpl implements LotteryApiService {
@@ -47,10 +48,8 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
-    public UserTicket getLotteries(String userid) {
-        if (userTicketRepository.findByUserid(userid) == null)
-            throw new UserTicketException("this UserId is not available");
 
+    public List<UserTicket> getLotteries(String userid) {
         return userTicketRepository.findByUserid(userid);
     }
 

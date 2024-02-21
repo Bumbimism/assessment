@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping()
 public class LotteryController {
@@ -29,12 +32,11 @@ public class LotteryController {
     }
 
     @GetMapping("/users/{userId}/lotteries")
-    public ResponseEntity<Object> getLotteries(@PathVariable("userId") String userId) {
-        UserTicket objectToReturn = lotteryApiService.getLotteries(userId);
+    public Object getLotteries(@PathVariable("userId") String userId) {
+        List<UserTicket> objectToReturn = lotteryApiService.getLotteries(userId);
 
-        return ResponseHandler.responseBuilder("your ticket",
-                HttpStatus.OK,
-                objectToReturn);
+        return objectToReturn;
+
 
     }
 
