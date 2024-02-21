@@ -9,6 +9,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface LotteryRepository extends CrudRepository<Lottery,String> {
-    List<Ticketid> findAll();
-
+List<Lottery> findAll();
 }
