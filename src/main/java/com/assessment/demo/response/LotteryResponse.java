@@ -1,9 +1,13 @@
 package com.assessment.demo.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
+@Getter
 public class LotteryResponse {
     @JsonProperty("ticket")
     private String ticketid;
@@ -12,11 +16,4 @@ public class LotteryResponse {
         this.ticketid = ticketid;
     }
 
-    public String getTicketid() {
-        return ticketid;
-    }
-
-    public void setTicketid(String ticketid) {
-        this.ticketid = ticketid;
-    }
 }

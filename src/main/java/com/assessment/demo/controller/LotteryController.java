@@ -1,13 +1,10 @@
 package com.assessment.demo.controller;
 
 import com.assessment.demo.entity.Lottery;
-import com.assessment.demo.response.IdResponse;
+import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.service.LotteryApiService;
 import com.assessment.demo.response.LotteryResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping()
@@ -33,7 +30,7 @@ public class LotteryController {
     }
 
     @PostMapping("/users/{userId}/lotteries/{ticketId}")
-    public IdResponse purchaseLottery(@PathVariable("userId") String userid, @PathVariable("ticketId") String ticketid) {
+    public TransactionIdResponse purchaseLottery(@PathVariable("userId") String userid, @PathVariable("ticketId") String ticketid) {
         return lotteryApiService.purchaseLottery(userid, ticketid);
     }
 

@@ -4,11 +4,10 @@ import com.assessment.demo.entity.Lottery;
 import com.assessment.demo.entity.UserTicket;
 import com.assessment.demo.repository.LotteryRepository;
 import com.assessment.demo.repository.UserTicketRepository;
-import com.assessment.demo.response.IdResponse;
+import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.response.LotteryResponse;
 import com.assessment.demo.service.LotteryApiService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -54,12 +53,12 @@ public class LotteryServiceImpl implements LotteryApiService {
 
     @Override
     @Transactional
-    public IdResponse purchaseLottery(String userid, String ticketid) {
+    public TransactionIdResponse purchaseLottery(String userid, String ticketid) {
         UserTicket userTicket = new UserTicket();
         userTicket.setUserid(userid);
         userTicket.setTicketid(ticketid);
         userTicketRepository.save(userTicket);
-        return new IdResponse(userTicket.getId().toString());
+        return new TransactionIdResponse(userTicket.getId().toString());
     }
 
     @Override
