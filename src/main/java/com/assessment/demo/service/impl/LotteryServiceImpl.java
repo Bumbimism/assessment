@@ -44,7 +44,7 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
-    public Object showUserLotteries(String userid) {
+    public UserLotteryResponse showUserLotteries(String userid) {
         Map<String, Object> object = new HashMap<>();
         List<String> listLotteries = userTicketRepository.findTicketsByUserid(userid);
         int count = listLotteries.size();
