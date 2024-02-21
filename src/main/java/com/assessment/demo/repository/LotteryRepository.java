@@ -2,6 +2,11 @@ package com.assessment.demo.repository;
 
 import com.assessment.demo.entity.Lottery;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
-public interface LotteryRepository extends JpaRepository<Lottery, String> {
+import java.util.List;
+
+public interface LotteryRepository extends CrudRepository<Lottery,String> {
+    List<Lottery> findAll();
 }

@@ -10,7 +10,9 @@ public class UserTicket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String userId;
-    private String ticketId;
+    private String userid;
+    private String ticketid;
     private int amount;
+
+
 }

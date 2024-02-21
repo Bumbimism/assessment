@@ -1,16 +1,18 @@
 package com.assessment.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
 @Table(name="lottery")
 public class Lottery {
     @Id
-    private String ticketId;
+    @Column(name="ticketid")
+    private Long ticketid;
     private int price;
     private int amount;
+
 }
