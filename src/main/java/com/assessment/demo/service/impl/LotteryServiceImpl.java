@@ -4,20 +4,19 @@ import com.assessment.demo.entity.Lottery;
 import com.assessment.demo.entity.UserTicket;
 import com.assessment.demo.repository.LotteryRepository;
 import com.assessment.demo.repository.UserTicketRepository;
-import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.response.LotteryResponse;
+import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.response.UserLotteryResponse;
 import com.assessment.demo.service.LotteryApiService;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static java.nio.file.Paths.get;
 
 @Service
 public class LotteryServiceImpl implements LotteryApiService {
@@ -57,17 +56,22 @@ public class LotteryServiceImpl implements LotteryApiService {
         int countTickets = (int) object.get("count");
         int costTickets = (int) object.get("cost");
 
-        return new UserLotteryResponse(tickets, countTickets,costTickets);
+        return new UserLotteryResponse(tickets, countTickets, costTickets);
     }
 
     @Override
     @Transactional
     public TransactionIdResponse purchaseLottery(String userid, String ticketid) {
-        UserTicket userTicket = new UserTicket();
-        userTicket.setUserid(userid);
-        userTicket.setTicketid(ticketid);
-        userTicketRepository.save(userTicket);
-        return new TransactionIdResponse(userTicket.getId().toString());
+        if (lotteryRepository.existsById(ticketid)) {
+            UserTicket userTicket = new UserTicket();
+            userTicket.setUserid(userid);
+            userTicket.setTicketid(ticketid);
+            userTicketRepository.save(userTicket);
+            return new TransactionIdResponse(userTicket.getId().toString());
+        } else {
+            throw new ResponseStatusException(HttpStatusCode.valueOf(400),"Ticket Not Available");
+        }
+
     }
 
     @Override
