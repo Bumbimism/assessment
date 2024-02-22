@@ -11,6 +11,7 @@ import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.response.UserLotteryResponse;
 import com.assessment.demo.service.LotteryApiService;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,7 +80,7 @@ public class LotteryServiceImpl implements LotteryApiService {
             userTicketRepository.save(userTicket);
             return new TransactionIdResponse(userTicket.getId().toString());
         } else {
-            throw new ResponseStatusException(HttpStatusCode.valueOf(400), "Ticket Not Available.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ticket Not Available.");
         }
 
     }
@@ -87,9 +88,15 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Override
     @Transactional
     public Object refundLottery(String userid, String ticketid) {
-        userTicketRepository.RefundLottery(userid, ticketid);
-        Map<String, String> ticketId= new HashMap<>();
-        ticketId.put("tickets", ticketid);
-        return ticketId;
+        if(!userTicketRepository.existsByUseridAndTicketid(userid,ticketid)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Not Found Ticket");
+
+        } else {
+            userTicketRepository.RefundLottery(userid, ticketid);
+            Map<String, String> ticketId = new HashMap<>();
+            ticketId.put("tickets", ticketid);
+            return ticketId;
+
+        }
     }
 }
