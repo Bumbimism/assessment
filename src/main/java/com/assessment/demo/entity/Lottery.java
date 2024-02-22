@@ -19,7 +19,9 @@ public class Lottery {
     @Column(name = "ticketid")
     @JsonProperty("ticket")
     private String ticketid;
+
     private int price;
+
     private int amount;
 
 }
