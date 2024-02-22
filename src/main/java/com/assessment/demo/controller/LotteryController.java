@@ -1,11 +1,11 @@
 package com.assessment.demo.controller;
 
-import com.assessment.demo.entity.Lottery;
+import com.assessment.demo.exception.BaseException;
 import com.assessment.demo.request.LotteryRequest;
+import com.assessment.demo.response.LotteryResponse;
 import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.service.LotteryApiService;
-import com.assessment.demo.response.LotteryResponse;
-import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping()
 public class LotteryController {
     private final LotteryApiService lotteryApiService;
+
     public LotteryController(LotteryApiService lotteryApiService) {
         this.lotteryApiService = lotteryApiService;
     }
@@ -23,6 +24,7 @@ public class LotteryController {
     }
 
     @PostMapping("/admin/lotteries")
+    @ResponseStatus(HttpStatus.CREATED)
     public LotteryResponse createLottery(@Validated @RequestBody LotteryRequest lotteryRequest) {
         return lotteryApiService.createLottery(lotteryRequest);
     }
@@ -33,12 +35,15 @@ public class LotteryController {
     }
 
     @PostMapping("/users/{userId}/lotteries/{ticketId}")
-    public TransactionIdResponse purchaseLottery(@PathVariable("userId") String userid, @PathVariable("ticketId") String ticketid) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public TransactionIdResponse purchaseLottery(@PathVariable("userId") String userid, @PathVariable("ticketId") String ticketid) throws BaseException {
         return lotteryApiService.purchaseLottery(userid, ticketid);
     }
 
+
     @DeleteMapping("/users/{userId}/lotteries/{ticketId}")
-    public Object refundLottery(@PathVariable("userId")String userId,@PathVariable("ticketId")String ticketId) {
+    @ResponseStatus(HttpStatus.OK)
+    public Object refundLottery(@PathVariable("userId") String userId, @PathVariable("ticketId") String ticketId) {
         return lotteryApiService.refundLottery(userId, ticketId);
     }
 }

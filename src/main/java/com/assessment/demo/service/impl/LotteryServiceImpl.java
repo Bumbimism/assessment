@@ -2,6 +2,7 @@ package com.assessment.demo.service.impl;
 
 import com.assessment.demo.entity.Lottery;
 import com.assessment.demo.entity.UserTicket;
+import com.assessment.demo.exception.LotteryException;
 import com.assessment.demo.repository.LotteryRepository;
 import com.assessment.demo.repository.UserTicketRepository;
 import com.assessment.demo.request.LotteryRequest;
@@ -78,7 +79,7 @@ public class LotteryServiceImpl implements LotteryApiService {
             userTicketRepository.save(userTicket);
             return new TransactionIdResponse(userTicket.getId().toString());
         } else {
-            throw new ResponseStatusException(HttpStatusCode.valueOf(400),"Ticket Not Available");
+            throw new ResponseStatusException(HttpStatusCode.valueOf(400), "Ticket Not Available.");
         }
 
     }
