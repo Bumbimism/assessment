@@ -2,7 +2,6 @@ package com.assessment.demo.service.impl;
 
 import com.assessment.demo.entity.Lottery;
 import com.assessment.demo.entity.UserTicket;
-import com.assessment.demo.exception.LotteryException;
 import com.assessment.demo.repository.LotteryRepository;
 import com.assessment.demo.repository.UserTicketRepository;
 import com.assessment.demo.request.LotteryRequest;
@@ -11,8 +10,8 @@ import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.response.UserLotteryResponse;
 import com.assessment.demo.service.LotteryApiService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
@@ -65,8 +64,6 @@ public class LotteryServiceImpl implements LotteryApiService {
         int countTickets = (int) object.get("count");
         int costTickets = (int) object.get("cost");
 
-//        UserLotteryResponse userLotteryResponse = new UserLotteryResponse(tickets, countTickets, costTickets);
-
         return new UserLotteryResponse(tickets, countTickets, costTickets);
     }
 
@@ -88,8 +85,8 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Override
     @Transactional
     public Object refundLottery(String userid, String ticketid) {
-        if(!userTicketRepository.existsByUseridAndTicketid(userid,ticketid)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Not Found Ticket");
+        if (!userTicketRepository.existsByUseridAndTicketid(userid, ticketid)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found Ticket");
 
         } else {
             userTicketRepository.RefundLottery(userid, ticketid);

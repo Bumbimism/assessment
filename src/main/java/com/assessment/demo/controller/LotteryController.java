@@ -5,6 +5,7 @@ import com.assessment.demo.request.LotteryRequest;
 import com.assessment.demo.response.LotteryResponse;
 import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.service.LotteryApiService;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -36,14 +37,16 @@ public class LotteryController {
 
     @PostMapping("/users/{userId}/lotteries/{ticketId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public TransactionIdResponse purchaseLottery(@PathVariable("userId") String userid, @PathVariable("ticketId") String ticketid) throws BaseException {
-        return lotteryApiService.purchaseLottery(userid, ticketid);
+    public TransactionIdResponse purchaseLottery(@PathVariable("userId") @Pattern(regexp = "[\\d]{10}") String userId,
+                                                 @PathVariable("ticketId") @Pattern(regexp = "[\\d]{6}") String ticketId) throws BaseException {
+        return lotteryApiService.purchaseLottery(userId, ticketId);
     }
 
 
     @DeleteMapping("/users/{userId}/lotteries/{ticketId}")
     @ResponseStatus(HttpStatus.OK)
-    public Object refundLottery(@PathVariable("userId") String userId, @PathVariable("ticketId") String ticketId) {
+    public Object refundLottery(@PathVariable("userId") @Pattern(regexp = "[\\d]{10}") String userId,
+                                @PathVariable("ticketId") @Pattern(regexp = "[\\d]{6}") String ticketId) {
         return lotteryApiService.refundLottery(userId, ticketId);
     }
 }
