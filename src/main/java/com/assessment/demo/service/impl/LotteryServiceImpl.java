@@ -10,7 +10,6 @@ import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.response.UserLotteryResponse;
 import com.assessment.demo.service.LotteryApiService;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,11 +40,11 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Override
     public LotteryResponse createLottery(LotteryRequest lotteryRequest) {
         Lottery lottery = new Lottery();
-        lottery.setTicketid(lotteryRequest.getTicketid());
+        lottery.setTicketId(lotteryRequest.getTicketid());
         lottery.setPrice(lottery.getPrice());
         lottery.setAmount(lottery.getAmount());
         lotteryRepository.save(lottery);
-        return new LotteryResponse(lottery.getTicketid());
+        return new LotteryResponse(lottery.getTicketId());
     }
 
     @Override
@@ -69,11 +68,11 @@ public class LotteryServiceImpl implements LotteryApiService {
 
     @Override
     @Transactional
-    public TransactionIdResponse purchaseLottery(String userid, String ticketid) {
-        if (lotteryRepository.existsById(ticketid)) {
+    public TransactionIdResponse purchaseLottery(String userId, String ticketId) {
+        if (lotteryRepository.existsById(ticketId)) {
             UserTicket userTicket = new UserTicket();
-            userTicket.setUserid(userid);
-            userTicket.setTicketid(ticketid);
+            userTicket.setUserId(userId);
+            userTicket.setTicketId(ticketId);
             userTicketRepository.save(userTicket);
             return new TransactionIdResponse(userTicket.getId().toString());
         } else {
@@ -84,15 +83,15 @@ public class LotteryServiceImpl implements LotteryApiService {
 
     @Override
     @Transactional
-    public Object refundLottery(String userid, String ticketid) {
-        if (!userTicketRepository.existsByUseridAndTicketid(userid, ticketid)) {
+    public Object refundLottery(String userId, String ticketId) {
+        if (!userTicketRepository.existsByUseridAndTicketId(userId, ticketId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found Ticket");
 
         } else {
-            userTicketRepository.RefundLottery(userid, ticketid);
-            Map<String, String> ticketId = new HashMap<>();
-            ticketId.put("tickets", ticketid);
-            return ticketId;
+            userTicketRepository.RefundLottery(userId, ticketId);
+            Map<String, String> ticket = new HashMap<>();
+            ticket.put("tickets", ticketId);
+            return ticket;
 
         }
     }

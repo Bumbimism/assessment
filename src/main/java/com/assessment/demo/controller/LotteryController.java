@@ -5,7 +5,6 @@ import com.assessment.demo.request.LotteryRequest;
 import com.assessment.demo.response.LotteryResponse;
 import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.service.LotteryApiService;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

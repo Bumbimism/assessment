@@ -16,9 +16,9 @@ public class Lottery {
 
     @Id
     @Pattern(regexp = "[\\d]{6}")
-    @Column(name = "ticketid")
+    @Column(name = "ticket_id")
     @JsonProperty("ticket")
-    private String ticketid;
+    private String ticketId;
 
     private int price;
 

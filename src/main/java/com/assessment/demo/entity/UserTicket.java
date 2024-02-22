@@ -10,13 +10,15 @@ import lombok.Data;
 public class UserTicket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long Id;
 
     @Pattern(regexp = "[\\d]{10}")
-    private String userid;
+    @Column(name = "user_id")
+    private String userId;
 
     @Pattern(regexp = "[\\d]{6}")
-    private String ticketid;
+    @Column(name = "ticket_id")
+    private String ticketId;
 
     private int amount;
 

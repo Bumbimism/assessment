@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface LotteryRepository extends CrudRepository<Lottery, String> {
-    @Query(value = "SELECT lottery.ticketid FROM lottery", nativeQuery = true)
+    @Query(value = "SELECT lottery.ticket_id FROM lottery", nativeQuery = true)
     List<String> findAllLotteries();
 
     @Override

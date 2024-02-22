@@ -10,7 +10,7 @@ public interface LotteryApiService {
     public Object showAllLotteries();
     public LotteryResponse createLottery(LotteryRequest lotteryRequest);
     public Object showUserLotteries(String userid);
-    public TransactionIdResponse purchaseLottery(String userid, String ticketid) throws LotteryException;
-    public Object refundLottery(String userid, String ticketid);
+    public TransactionIdResponse purchaseLottery(String userid, String ticketId) throws LotteryException;
+    public Object refundLottery(String userid, String ticketId);
 
 }
