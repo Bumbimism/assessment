@@ -1,6 +1,5 @@
 package com.assessment.demo.controller;
 
-import com.assessment.demo.exception.BaseException;
 import com.assessment.demo.request.LotteryRequest;
 import com.assessment.demo.response.LotteryResponse;
 import com.assessment.demo.response.TransactionIdResponse;
@@ -37,7 +36,7 @@ public class LotteryController {
     @PostMapping("/users/{userId}/lotteries/{ticketId}")
     @ResponseStatus(HttpStatus.CREATED)
     public TransactionIdResponse purchaseLottery(@PathVariable("userId") String userId,
-                                                 @PathVariable("ticketId") String ticketId) throws BaseException {
+                                                 @PathVariable("ticketId") String ticketId) {
         return lotteryApiService.purchaseLottery(userId, ticketId);
     }
 

@@ -69,16 +69,17 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Override
     @Transactional
     public TransactionIdResponse purchaseLottery(String userId, String ticketId) {
-        if (lotteryRepository.existsById(ticketId)) {
+        if (!lotteryRepository.existsByTicketId(ticketId)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ticket Not Available.");
+
+        } else {
             UserTicket userTicket = new UserTicket();
             userTicket.setUserId(userId);
             userTicket.setTicketId(ticketId);
             userTicketRepository.save(userTicket);
             return new TransactionIdResponse(userTicket.getId().toString());
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ticket Not Available.");
-        }
 
+        }
     }
 
     @Override
