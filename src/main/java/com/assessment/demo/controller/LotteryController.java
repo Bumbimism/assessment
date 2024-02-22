@@ -1,6 +1,7 @@
 package com.assessment.demo.controller;
 
 import com.assessment.demo.entity.Lottery;
+import com.assessment.demo.request.LotteryRequest;
 import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.service.LotteryApiService;
 import com.assessment.demo.response.LotteryResponse;
@@ -20,8 +21,8 @@ public class LotteryController {
     }
 
     @PostMapping("/admin/lotteries")
-    public LotteryResponse createLottery(@RequestBody Lottery lottery) {
-        return lotteryApiService.createLottery(lottery);
+    public LotteryResponse createLottery(@RequestBody LotteryRequest lotteryRequest) {
+        return lotteryApiService.createLottery(lotteryRequest);
     }
 
     @GetMapping("/users/{userId}/lotteries")

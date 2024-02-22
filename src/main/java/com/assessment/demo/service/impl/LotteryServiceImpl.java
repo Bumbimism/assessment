@@ -4,6 +4,7 @@ import com.assessment.demo.entity.Lottery;
 import com.assessment.demo.entity.UserTicket;
 import com.assessment.demo.repository.LotteryRepository;
 import com.assessment.demo.repository.UserTicketRepository;
+import com.assessment.demo.request.LotteryRequest;
 import com.assessment.demo.response.LotteryResponse;
 import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.response.UserLotteryResponse;
@@ -37,7 +38,11 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
-    public LotteryResponse createLottery(Lottery lottery) {
+    public LotteryResponse createLottery(LotteryRequest lotteryRequest) {
+        Lottery lottery = new Lottery();
+        lottery.setTicketid(lotteryRequest.getTicketid());
+        lottery.setPrice(lottery.getPrice());
+        lottery.setAmount(lottery.getAmount());
         lotteryRepository.save(lottery);
         return new LotteryResponse(lottery.getTicketid());
     }
