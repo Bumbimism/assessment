@@ -49,17 +49,21 @@ public class LotteryServiceImpl implements LotteryApiService {
 
     @Override
     public UserLotteryResponse showUserLotteries(String userid) {
-        Map<String, Object> object = new HashMap<>();
+
         List<String> listLotteries = userTicketRepository.findTicketsByUserid(userid);
         int count = listLotteries.size();
         int cost = count * 80;
+
+        Map<String, Object> object = new HashMap<>();
         object.put("tickets", listLotteries);
         object.put("count", count);
         object.put("cost", cost);
-        ;
+
         List<String> tickets = (List<String>) object.get("tickets");
         int countTickets = (int) object.get("count");
         int costTickets = (int) object.get("cost");
+
+//        UserLotteryResponse userLotteryResponse = new UserLotteryResponse(tickets, countTickets, costTickets);
 
         return new UserLotteryResponse(tickets, countTickets, costTickets);
     }
@@ -83,8 +87,8 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Transactional
     public Object refundLottery(String userid, String ticketid) {
         userTicketRepository.RefundLottery(userid, ticketid);
-        Map<String, String> object = new HashMap<>();
-        object.put("tickets", ticketid);
-        return object;
+        Map<String, String> ticketId= new HashMap<>();
+        ticketId.put("tickets", ticketid);
+        return ticketId;
     }
 }
