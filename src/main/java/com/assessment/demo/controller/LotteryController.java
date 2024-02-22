@@ -5,6 +5,8 @@ import com.assessment.demo.request.LotteryRequest;
 import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.service.LotteryApiService;
 import com.assessment.demo.response.LotteryResponse;
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,7 +23,7 @@ public class LotteryController {
     }
 
     @PostMapping("/admin/lotteries")
-    public LotteryResponse createLottery(@RequestBody LotteryRequest lotteryRequest) {
+    public LotteryResponse createLottery(@Validated @RequestBody LotteryRequest lotteryRequest) {
         return lotteryApiService.createLottery(lotteryRequest);
     }
 
