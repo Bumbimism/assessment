@@ -37,16 +37,16 @@ public class LotteryController {
 
     @PostMapping("/users/{userId}/lotteries/{ticketId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public TransactionIdResponse purchaseLottery(@PathVariable("userId") @Pattern(regexp = "[\\d]{10}") String userId,
-                                                 @PathVariable("ticketId") @Pattern(regexp = "[\\d]{6}") String ticketId) throws BaseException {
+    public TransactionIdResponse purchaseLottery(@PathVariable("userId") String userId,
+                                                 @PathVariable("ticketId") String ticketId) throws BaseException {
         return lotteryApiService.purchaseLottery(userId, ticketId);
     }
 
 
     @DeleteMapping("/users/{userId}/lotteries/{ticketId}")
     @ResponseStatus(HttpStatus.OK)
-    public Object refundLottery(@PathVariable("userId") @Pattern(regexp = "[\\d]{10}") String userId,
-                                @PathVariable("ticketId") @Pattern(regexp = "[\\d]{6}") String ticketId) {
+    public Object refundLottery(@PathVariable("userId") String userId,
+                                @PathVariable("ticketId") String ticketId) {
         return lotteryApiService.refundLottery(userId, ticketId);
     }
 }
