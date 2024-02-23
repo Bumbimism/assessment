@@ -1,10 +1,10 @@
 package com.assessment.demo.response;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 public class TransactionIdResponse {
 
     private String id;

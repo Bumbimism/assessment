@@ -13,9 +13,6 @@ public interface UserTicketRepository extends JpaRepository<UserTicket, String> 
 
     List<UserTicket> findAllByUserId(String ticketId);
 
-    @Query(value = "SELECT l.ticket_id as ticket_id , l FROM user_ticket where user_id = :user_id", nativeQuery = true)
-    List<String> findTicketsByUserId(@Param("user_id") String userId);
-
     @Query(value = "SELECT COUNT(scen) > 0 FROM user_ticket scen WHERE scen.ticket_id = :ticket_id AND scen.user_id = :user_id ", nativeQuery = true)
     boolean existsByUseridAndTicketId(@Param("user_id") String userId, @Param("ticket_id") String ticketId);
 

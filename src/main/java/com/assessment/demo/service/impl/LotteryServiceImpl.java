@@ -63,8 +63,6 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
-    @Transactional
-    // TO DO: set price and amount
     public TransactionIdResponse purchaseLottery(String userId, String ticketId) {
         Integer ticketPrice = lotteryRepository.findPriceByTicketId(ticketId);
         if (!lotteryRepository.existsByTicketId(ticketId)) {
