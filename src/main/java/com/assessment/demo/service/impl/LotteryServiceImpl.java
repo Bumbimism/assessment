@@ -18,7 +18,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class LotteryServiceImpl implements LotteryApiService {
@@ -42,8 +41,8 @@ public class LotteryServiceImpl implements LotteryApiService {
     public LotteryResponse createLottery(LotteryRequest lotteryRequest) {
         Lottery lottery = new Lottery();
         lottery.setTicketId(lotteryRequest.getTicketid());
-        lottery.setPrice(lottery.getPrice());
-        lottery.setAmount(lottery.getAmount());
+        lottery.setPrice(lotteryRequest.getPrice());
+        lottery.setAmount(lotteryRequest.getAmount());
         lotteryRepository.save(lottery);
         return new LotteryResponse(lottery.getTicketId());
     }
@@ -51,20 +50,16 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Override
     public UserTicketResponse showUserLotteries(String userId) {
 
-        List<String> listLotteries = userTicketRepository.findTicketsByUserId(userId);
-        int count = listLotteries.size();
-        int cost = count * 80;
+        List<UserTicket> userTickets = userTicketRepository.findAllByUserId(userId);
+        List<String> tickets = userTickets.stream()
+                .map(UserTicket::getTicketId)
+                .toList();
+        int count = tickets.size();
+        int cost = userTickets.stream()
+                .mapToInt(UserTicket::getPrice)
+                .sum();
 
-        Map<String, Object> object = new HashMap<>();
-        object.put("tickets", listLotteries);
-        object.put("count", count);
-        object.put("cost", cost);
-
-        List<String> tickets = (List<String>) object.get("tickets");
-        int countTickets = (int) object.get("count");
-        int costTickets = (int) object.get("cost");
-
-        return new UserTicketResponse(tickets, countTickets, costTickets);
+        return new UserTicketResponse(tickets, count, cost);
     }
 
     @Override

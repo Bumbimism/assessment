@@ -7,9 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserTicketRepository extends JpaRepository<UserTicket, String> {
-    @Query(value = "SELECT ticket_id FROM user_ticket where user_id = :user_id", nativeQuery = true)
+
+    List<UserTicket> findAllByUserId(String ticketId);
+
+    @Query(value = "SELECT l.ticket_id as ticket_id , l FROM user_ticket where user_id = :user_id", nativeQuery = true)
     List<String> findTicketsByUserId(@Param("user_id") String userId);
 
     @Query(value = "SELECT COUNT(scen) > 0 FROM user_ticket scen WHERE scen.ticket_id = :ticket_id AND scen.user_id = :user_id ", nativeQuery = true)
