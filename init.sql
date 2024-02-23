@@ -24,5 +24,6 @@ CREATE TABLE user_ticket
     id        SERIAL PRIMARY KEY,
     user_id   VARCHAR(255),
     ticket_id VARCHAR(255) NOT NULL,
+    price     VARCHAR(255) NOT NULL,
     amount    VARCHAR(255) NOT NULL
 );

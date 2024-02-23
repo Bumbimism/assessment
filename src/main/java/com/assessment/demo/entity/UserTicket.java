@@ -20,6 +20,9 @@ public class UserTicket {
     @Column(name = "ticket_id")
     private String ticketId;
 
+    private int price;
+
     private int amount;
+
 
 }

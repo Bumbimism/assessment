@@ -7,7 +7,7 @@ import com.assessment.demo.repository.UserTicketRepository;
 import com.assessment.demo.request.LotteryRequest;
 import com.assessment.demo.response.LotteryResponse;
 import com.assessment.demo.response.TransactionIdResponse;
-import com.assessment.demo.response.UserLotteryResponse;
+import com.assessment.demo.response.UserTicketResponse;
 import com.assessment.demo.service.LotteryApiService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class LotteryServiceImpl implements LotteryApiService {
@@ -48,9 +49,9 @@ public class LotteryServiceImpl implements LotteryApiService {
     }
 
     @Override
-    public UserLotteryResponse showUserLotteries(String userid) {
+    public UserTicketResponse showUserLotteries(String userId) {
 
-        List<String> listLotteries = userTicketRepository.findTicketsByUserid(userid);
+        List<String> listLotteries = userTicketRepository.findTicketsByUserId(userId);
         int count = listLotteries.size();
         int cost = count * 80;
 
@@ -63,12 +64,14 @@ public class LotteryServiceImpl implements LotteryApiService {
         int countTickets = (int) object.get("count");
         int costTickets = (int) object.get("cost");
 
-        return new UserLotteryResponse(tickets, countTickets, costTickets);
+        return new UserTicketResponse(tickets, countTickets, costTickets);
     }
 
     @Override
     @Transactional
+    // TO DO: set price and amount
     public TransactionIdResponse purchaseLottery(String userId, String ticketId) {
+        Integer ticketPrice = lotteryRepository.findPriceByTicketId(ticketId);
         if (!lotteryRepository.existsByTicketId(ticketId)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ticket Not Available.");
 
@@ -76,6 +79,9 @@ public class LotteryServiceImpl implements LotteryApiService {
             UserTicket userTicket = new UserTicket();
             userTicket.setUserId(userId);
             userTicket.setTicketId(ticketId);
+            userTicket.setPrice(ticketPrice);
+            userTicket.setAmount(1);
+
             userTicketRepository.save(userTicket);
             return new TransactionIdResponse(userTicket.getId().toString());
 
