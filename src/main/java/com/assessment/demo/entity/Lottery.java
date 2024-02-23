@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
@@ -15,9 +14,9 @@ import lombok.Data;
 public class Lottery {
 
     @Id
-    @Pattern(regexp = "[\\d]{6}")
     @Column(name = "ticket_id")
     @JsonProperty("ticket")
+    @Pattern(regexp = "[\\d]{6}")
     private String ticketId;
 
     private int price;

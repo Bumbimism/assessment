@@ -1,11 +1,8 @@
 package com.assessment.demo.controller;
 
-import com.assessment.demo.request.LotteryRequest;
-import com.assessment.demo.response.LotteryResponse;
 import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.service.LotteryApiService;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,12 +17,6 @@ public class LotteryController {
     @GetMapping("/lotteries")
     public Object getAllLotteries() {
         return lotteryApiService.showAllLotteries();
-    }
-
-    @PostMapping("/admin/lotteries")
-    @ResponseStatus(HttpStatus.CREATED)
-    public LotteryResponse createLottery(@Validated @RequestBody LotteryRequest lotteryRequest) {
-        return lotteryApiService.createLottery(lotteryRequest);
     }
 
     @GetMapping("/users/{userId}/lotteries")
