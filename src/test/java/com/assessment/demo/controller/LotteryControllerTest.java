@@ -28,10 +28,10 @@ class LotteryControllerTest {
 
     MockMvc mockMvc;
     @Mock
-    private LotteryApiService lotteryApiService;
+    LotteryApiService lotteryApiService;
 
     @BeforeEach
-    public void SetUp() {
+    void SetUp() {
         LotteryController lotteryController = new LotteryController(lotteryApiService);
         mockMvc = MockMvcBuilders.standaloneSetup(lotteryController)
                 .alwaysDo(print())
@@ -41,7 +41,7 @@ class LotteryControllerTest {
 
     @Test
     @DisplayName("when get /lotteries then return 200")
-    public void showLotteries() throws Exception {
+    void showLotteries() throws Exception {
         mockMvc.perform(get("/lotteries"))
                 .andExpect(status().isOk());
     }
@@ -80,8 +80,8 @@ class LotteryControllerTest {
         mockMvc.perform(get("/users/{userId}/lotteries", userId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.tickets", is(tickets)))
-                .andExpect(jsonPath("$.cost", is(count)))
-                .andExpect(jsonPath("$.count", is(cost)));
+                .andExpect(jsonPath("$.cost", is(cost)))
+                .andExpect(jsonPath("$.count", is(count)));
     }
 
     @Test
@@ -108,6 +108,7 @@ class LotteryControllerTest {
                 .andExpect(jsonPath("$.id", is(Id)));
 
     }
+
     @Test
     @DisplayName("when delete /users/{userId}/lotteries/{ticketId} then return 200")
     void refundLottery() throws Exception {
