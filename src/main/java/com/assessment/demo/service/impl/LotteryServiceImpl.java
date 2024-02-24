@@ -40,7 +40,7 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Override
     public LotteryResponse createLottery(LotteryRequest lotteryRequest) {
         Lottery lottery = new Lottery();
-        lottery.setTicketId(lotteryRequest.getTicketid());
+        lottery.setTicketId(lotteryRequest.getTicketId());
         lottery.setPrice(lotteryRequest.getPrice());
         lottery.setAmount(lotteryRequest.getAmount());
         lotteryRepository.save(lottery);
