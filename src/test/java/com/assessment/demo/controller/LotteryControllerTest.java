@@ -17,6 +17,7 @@ import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -80,5 +81,30 @@ class LotteryControllerTest {
                 .andExpect(jsonPath("$.cost", is(240)))
                 .andExpect(jsonPath("$.count", is(3)));
     }
+
+    @Test
+    @DisplayName("when post /users/{userId}/lotteries/{ticketId} then return 201")
+    void purchaseLottery() throws Exception {
+
+        mockMvc.perform(post("/users/{userId}/lotteries/{ticketId}", "2602202488","888888"))
+                .andExpect(status().isCreated());
+    }
+
+//    @Test
+//    @DisplayName("when get /users/{userId}/lotteries then return user's ticket list")
+//    void purchaseLotterySuccess() throws Exception {
+//        String userId = "2602202488";
+//        List<String> tickets = List.of("123123", "246824", "888888");
+//        int count = 3;
+//        int cost = 240;
+//
+//        when(lotteryApiService.showUserLotteries(userId)).thenReturn(new UserTicketResponse(tickets, count, cost));
+//
+//        mockMvc.perform(get("/users/{userId}/lotteries", userId))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.tickets", is(List.of("123123", "246824", "888888"))))
+//                .andExpect(jsonPath("$.cost", is(240)))
+//                .andExpect(jsonPath("$.count", is(3)));
+//    }
 
 }
