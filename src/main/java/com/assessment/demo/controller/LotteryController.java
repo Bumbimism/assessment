@@ -1,5 +1,6 @@
 package com.assessment.demo.controller;
 
+import com.assessment.demo.response.LotteryResponse;
 import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.service.LotteryApiService;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,8 @@ public class LotteryController {
 
     @DeleteMapping("/users/{userId}/lotteries/{ticketId}")
     @ResponseStatus(HttpStatus.OK)
-    public Object refundLottery(@PathVariable("userId") String userId,
-                                @PathVariable("ticketId") String ticketId) {
+    public LotteryResponse refundLottery(@PathVariable("userId") String userId,
+                                         @PathVariable("ticketId") String ticketId) {
         return lotteryApiService.refundLottery(userId, ticketId);
     }
 }

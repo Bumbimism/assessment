@@ -17,8 +17,7 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -106,6 +105,29 @@ class LotteryControllerTest {
         mockMvc.perform(post("/users/{userId}/lotteries/{ticketId}", userId, ticketId))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is("888")));
+
+    }
+    @Test
+    @DisplayName("when delete /users/{userId}/lotteries/{ticketId} then return 200")
+    void refundLottery() throws Exception {
+        String userId = "2602202488";
+        String ticketId = "888888";
+
+        mockMvc.perform(delete("/users/{userId}/lotteries/{ticketId}", userId, ticketId))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("when post /users/{userId}/lotteries/{ticketId} then return ticket id")
+    void refundLotterySuccess() throws Exception {
+        String userId = "2602202488";
+        String ticketId = "888888";
+
+        when(lotteryApiService.refundLottery(userId, ticketId)).thenReturn(new LotteryResponse(ticketId));
+
+        mockMvc.perform(delete("/users/{userId}/lotteries/{ticketId}", userId, ticketId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.ticket", is(ticketId)));
 
     }
 }

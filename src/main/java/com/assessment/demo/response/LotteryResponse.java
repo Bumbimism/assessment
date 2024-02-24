@@ -10,10 +10,10 @@ import java.util.List;
 @Data
 public class LotteryResponse {
     @JsonProperty("ticket")
-    private String ticketid;
+    private String ticketId;
 
-    public LotteryResponse(String ticketid) {
-        this.ticketid = ticketid;
+    public LotteryResponse(String ticketId) {
+        this.ticketId = ticketId;
     }
 
 }

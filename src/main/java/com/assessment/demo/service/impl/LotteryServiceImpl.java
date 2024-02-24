@@ -83,15 +83,15 @@ public class LotteryServiceImpl implements LotteryApiService {
 
     @Override
     @Transactional
-    public Object refundLottery(String userId, String ticketId) {
+    public LotteryResponse refundLottery(String userId, String ticketId) {
         if (!userTicketRepository.existsByUseridAndTicketId(userId, ticketId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found Ticket");
 
         } else {
             userTicketRepository.RefundLottery(userId, ticketId);
-            Map<String, String> ticket = new HashMap<>();
-            ticket.put("tickets", ticketId);
-            return ticket;
+//            Map<String, String> ticket = new HashMap<>();
+//            ticket.put("ticket", ticketId);
+            return new LotteryResponse(ticketId);
 
         }
     }
