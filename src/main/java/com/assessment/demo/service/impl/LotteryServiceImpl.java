@@ -32,18 +32,21 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Override
     @ResponseBody
     public Object showAllLotteries() {
-        Map<String, List<String>> object = new HashMap<>();
-        object.put("tickets", lotteryRepository.findAllLotteries());
-        return object;
+        Map<String, String[]> lotteryList = new HashMap<>();
+        lotteryList.put("tickets", lotteryRepository.findAllLotteries());
+        return lotteryList;
     }
 
     @Override
     public LotteryResponse createLottery(LotteryRequest lotteryRequest) {
-        Lottery lottery = new Lottery();
-        lottery.setTicketId(lotteryRequest.getTicketId());
-        lottery.setPrice(lotteryRequest.getPrice());
-        lottery.setAmount(lotteryRequest.getAmount());
+        String ticketId = lotteryRequest.getTicketId();
+        int price = lotteryRequest.getPrice();
+        int amount = lotteryRequest.getAmount();
+
+        Lottery lottery = new Lottery(ticketId,price,amount);
+
         lotteryRepository.save(lottery);
+
         return new LotteryResponse(lottery.getTicketId());
     }
 

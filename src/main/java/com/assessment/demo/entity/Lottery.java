@@ -23,4 +23,15 @@ public class Lottery {
 
     private int amount;
 
+    public Lottery() {
+
+    }
+
+    public Lottery(String ticketId, int price, int amount) {
+        this.ticketId = ticketId;
+        this.price = price;
+        this.amount = amount;
+    }
+
+
 }
