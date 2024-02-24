@@ -79,9 +79,9 @@ class LotteryControllerTest {
 
         mockMvc.perform(get("/users/{userId}/lotteries", userId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.tickets", is(List.of("123123", "246824", "888888"))))
-                .andExpect(jsonPath("$.cost", is(240)))
-                .andExpect(jsonPath("$.count", is(3)));
+                .andExpect(jsonPath("$.tickets", is(tickets)))
+                .andExpect(jsonPath("$.cost", is(count)))
+                .andExpect(jsonPath("$.count", is(cost)));
     }
 
     @Test
@@ -99,12 +99,13 @@ class LotteryControllerTest {
     void purchaseLotterySuccess() throws Exception {
         String userId = "2602202488";
         String ticketId = "888888";
+        String Id = "888";
 
-        when(lotteryApiService.purchaseLottery(userId, ticketId)).thenReturn(new TransactionIdResponse("888"));
+        when(lotteryApiService.purchaseLottery(userId, ticketId)).thenReturn(new TransactionIdResponse(Id));
 
         mockMvc.perform(post("/users/{userId}/lotteries/{ticketId}", userId, ticketId))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is("888")));
+                .andExpect(jsonPath("$.id", is(Id)));
 
     }
     @Test
