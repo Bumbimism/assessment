@@ -1,6 +1,7 @@
 package com.assessment.demo.controller;
 
 import com.assessment.demo.response.LotteryResponse;
+import com.assessment.demo.response.TransactionIdResponse;
 import com.assessment.demo.response.UserTicketResponse;
 import com.assessment.demo.service.LotteryApiService;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +37,7 @@ class LotteryControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(lotteryController)
                 .alwaysDo(print())
                 .build();
+
     }
 
     @Test
@@ -61,7 +63,8 @@ class LotteryControllerTest {
     @Test
     @DisplayName("when get /users/{userId}/lotteries then return 200")
     void showUserLotteries() throws Exception {
-        mockMvc.perform(get("/lotteries", "2602202488"))
+        String userId = "2602202488";
+        mockMvc.perform(get("/lotteries", userId))
                 .andExpect(status().isOk());
     }
 
@@ -85,26 +88,24 @@ class LotteryControllerTest {
     @Test
     @DisplayName("when post /users/{userId}/lotteries/{ticketId} then return 201")
     void purchaseLottery() throws Exception {
+        String userId = "2602202488";
+        String ticketId = "888888";
 
-        mockMvc.perform(post("/users/{userId}/lotteries/{ticketId}", "2602202488","888888"))
+        mockMvc.perform(post("/users/{userId}/lotteries/{ticketId}", userId, ticketId))
                 .andExpect(status().isCreated());
     }
 
-//    @Test
-//    @DisplayName("when get /users/{userId}/lotteries then return user's ticket list")
-//    void purchaseLotterySuccess() throws Exception {
-//        String userId = "2602202488";
-//        List<String> tickets = List.of("123123", "246824", "888888");
-//        int count = 3;
-//        int cost = 240;
-//
-//        when(lotteryApiService.showUserLotteries(userId)).thenReturn(new UserTicketResponse(tickets, count, cost));
-//
-//        mockMvc.perform(get("/users/{userId}/lotteries", userId))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.tickets", is(List.of("123123", "246824", "888888"))))
-//                .andExpect(jsonPath("$.cost", is(240)))
-//                .andExpect(jsonPath("$.count", is(3)));
-//    }
+    @Test
+    @DisplayName("when post /users/{userId}/lotteries/{ticketId} then return id")
+    void purchaseLotterySuccess() throws Exception {
+        String userId = "2602202488";
+        String ticketId = "888888";
 
+        when(lotteryApiService.purchaseLottery(userId, ticketId)).thenReturn(new TransactionIdResponse("888"));
+
+        mockMvc.perform(post("/users/{userId}/lotteries/{ticketId}", userId, ticketId))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", is("888")));
+
+    }
 }
