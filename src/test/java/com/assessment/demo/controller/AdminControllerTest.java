@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -42,6 +43,7 @@ public class AdminControllerTest {
     @DisplayName("when post /lotteries then return ticket list")
     @WithMockUser("admin")
     void createLottery() throws Exception {
+
         LotteryRequest lotteryRequest = new LotteryRequest("888888", 80, 1);
 
         when(lotteryApiService.createLottery(lotteryRequest)).thenReturn(new LotteryResponse("888888"));
@@ -50,12 +52,7 @@ public class AdminControllerTest {
                         .content(new ObjectMapper().writeValueAsString(lotteryRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.ticket", is("888888")));
+
+        verify(lotteryApiService).createLottery(lotteryRequest);
     }
-
-
-//
-//        mockMvc.perform(post("/lotteries"))
-//                .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.ticket", is("888888")));
-//    }
 }

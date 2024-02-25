@@ -16,7 +16,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -66,10 +65,10 @@ public class LotteryServiceTest {
         when(lotteryRepository.save(any(Lottery.class)))
                 .thenAnswer(i -> i.getArguments()[0]);
         LotteryResponse found = lotteryService.createLottery(lottery);
-
         Assertions.assertEquals("123123", found.getTicketId());
 
         verify(lotteryRepository).save(any(Lottery.class));
+
     }
 
     @Test
@@ -83,11 +82,10 @@ public class LotteryServiceTest {
         int count = 2;
         int cost = 160;
 
-        when(userTicketRepository.findAllByUserId(userId))
-                .thenReturn(Arrays.asList(ticket1, ticket2));
+        when(userTicketRepository.findAllByUserId(userId)).thenReturn(Arrays.asList(ticket1,ticket2));
         UserTicketResponse found = lotteryService.showUserLotteries(userId);
 
-        Assertions.assertEquals(new UserTicketResponse(tickets, count, cost), found);
+        Assertions.assertEquals(new UserTicketResponse(tickets,count,cost),found);
 
         verify(userTicketRepository).findAllByUserId(userId);
 
@@ -102,15 +100,17 @@ public class LotteryServiceTest {
         String ticketId = "123123";
         int price = 80;
         int amount = 1;
-        UserTicket userTicket = new UserTicket(userId, ticketId, price, amount);
+        UserTicket userTicket = new UserTicket(userId,ticketId,price,amount);
+
         when(lotteryRepository.existsByTicketId(ticketId)).thenReturn(true);
         when(lotteryRepository.findPriceByTicketId(ticketId)).thenReturn(price);
         doAnswer(invocation -> {
-            ReflectionTestUtils.setField((UserTicket) invocation.getArgument(0), "Id", Id);
+            ReflectionTestUtils
+                    .setField((UserTicket) invocation
+                    .getArgument(0), "Id", Id);
             return null;
         }).when(userTicketRepository).save(userTicket);
-
-        TransactionIdResponse id = lotteryService.purchaseLottery(userId, ticketId);
+        TransactionIdResponse id = lotteryService.purchaseLottery(userId,ticketId);
 
         Assertions.assertNotNull(id);
         Assertions.assertEquals("888", id.getId());
@@ -118,6 +118,7 @@ public class LotteryServiceTest {
         verify(lotteryRepository).existsByTicketId(ticketId);
         verify(lotteryRepository).findPriceByTicketId(ticketId);
         verify(userTicketRepository).save(any(UserTicket.class));
+
     }
 
     @Test
@@ -132,7 +133,7 @@ public class LotteryServiceTest {
         assertThrows(ResponseStatusException.class, () -> lotteryService.purchaseLottery(userId, ticketId));
 
         verify(lotteryRepository).existsByTicketId(ticketId);
-        verify(lotteryRepository,never()).findPriceByTicketId(ticketId);
+        verify(lotteryRepository, never()).findPriceByTicketId(ticketId);
         verify(lotteryRepository, never()).save(any());
 
     }
@@ -146,11 +147,12 @@ public class LotteryServiceTest {
         LotteryResponse ticket = new LotteryResponse(ticketId);
 
         when(userTicketRepository.existsByUseridAndTicketId(userId, ticketId)).thenReturn(true);
-
         LotteryResponse found = lotteryService.refundLottery(userId, ticketId);
 
         Assertions.assertNotNull(ticket);
         Assertions.assertEquals(ticket, found);
+
+        verify(userTicketRepository).existsByUseridAndTicketId(userId, ticketId);
 
     }
 
@@ -165,9 +167,7 @@ public class LotteryServiceTest {
 
         assertThrows(ResponseStatusException.class, () -> lotteryService.refundLottery(userId, ticketId));
 
-        verify(userTicketRepository,never()).RefundLottery(userId,ticketId);
-
-
+        verify(userTicketRepository, never()).RefundLottery(userId, ticketId);
 
     }
 
