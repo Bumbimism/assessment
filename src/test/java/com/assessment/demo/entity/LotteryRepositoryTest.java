@@ -32,7 +32,7 @@ class LotteryRepositoryTest {
     }
 
     @Test
-    @DisplayName("JUnit test for get all lottery")
+    @DisplayName("when query findAllLotteries then return lotteryList")
     void findAllLotteries() {
         String[] lotteryList1 = {"123123","246824"} ;
         Lottery lottery1 = new Lottery("123123", 80, 1);
@@ -43,7 +43,7 @@ class LotteryRepositoryTest {
         String[] lotteryList2 = lotteryRepository.findAllLotteries();
 
         assertNotNull(lotteryList2);
-        assertArrayEquals(lotteryList1,lotteryList2);
-
+        Assertions.assertArrayEquals(lotteryList1, lotteryList2);
     }
+
 }

@@ -7,10 +7,10 @@ import lombok.Setter;
 @Data
 public class TransactionIdResponse {
 
-    private String id;
+    private String Id;
 
-    public TransactionIdResponse(String id) {
-        this.id = id;
+    public TransactionIdResponse(String Id) {
+        this.Id = Id;
     }
 
 }

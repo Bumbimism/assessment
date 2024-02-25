@@ -32,4 +32,13 @@ public class UserTicket {
         this.price = price;
         this.amount = amount;
     }
+
+    public UserTicket(String userId, String ticketId, int price, int amount) {
+
+        this.userId = userId;
+        this.ticketId = ticketId;
+        this.price = price;
+        this.amount = amount;
+    }
+
 }
