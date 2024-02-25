@@ -67,11 +67,13 @@ public class LotteryServiceImpl implements LotteryApiService {
 
     @Override
     public TransactionIdResponse purchaseLottery(String userId, String ticketId) {
-        Integer ticketPrice = lotteryRepository.findPriceByTicketId(ticketId);
+
         if (!lotteryRepository.existsByTicketId(ticketId)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ticket Not Available.");
 
         } else {
+            Integer ticketPrice = lotteryRepository.findPriceByTicketId(ticketId);
+
             UserTicket userTicket = new UserTicket();
             userTicket.setUserId(userId);
             userTicket.setTicketId(ticketId);
@@ -87,13 +89,12 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Override
     @Transactional
     public LotteryResponse refundLottery(String userId, String ticketId) {
+
         if (!userTicketRepository.existsByUseridAndTicketId(userId, ticketId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found Ticket");
 
         } else {
             userTicketRepository.RefundLottery(userId, ticketId);
-//            Map<String, String> ticket = new HashMap<>();
-//            ticket.put("ticket", ticketId);
             return new LotteryResponse(ticketId);
 
         }
