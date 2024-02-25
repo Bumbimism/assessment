@@ -24,5 +24,12 @@ public class UserTicket {
 
     private int amount;
 
+    public UserTicket() {
+    }
 
+    public UserTicket(String ticketId, int price, int amount) {
+        this.ticketId = ticketId;
+        this.price = price;
+        this.amount = amount;
+    }
 }
