@@ -29,10 +29,6 @@ class LotteryRepositoryTest {
     @Autowired
     LotteryRepository lotteryRepository;
 
-    @BeforeEach
-    void SetUp() {
-    }
-
     @Test
     @DisplayName("when query findAllLotteries then return lotteryList")
     void findAllLotteries() {
