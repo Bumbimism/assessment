@@ -207,6 +207,7 @@ name = "ชื่อตาราง") ไปที่ entity ได้ https://w
 
 ตอบ หมายถึงตรง config connection ของ database ใช่ไหมครับ ใช้เป็นอะไรก็ได้ ขอให้เชื่อมต่อได้ก็พอครับ
 
+## Note for me
 #### CMD TO RUN PROJECT
 1. `docker build -f Dockerfile.multi -t demo-multi:latest . `
 2. `docker-compose up`
