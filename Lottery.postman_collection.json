@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "7b09adbb-ead9-4bc6-98d7-d1e98455de64",
+		"name": "Lottery",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32543070"
+	},
+	"item": [
+		{
+			"name": "all-lotteries",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/lotteries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"lotteries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lottery",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ticket\":\"933975\",\r\n    \"price\":\"80\",\r\n    \"amount\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/admin/lotteries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"admin",
+						"lotteries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-lotteries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/users/2014182023/lotteries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"users",
+						"2014182023",
+						"lotteries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "purchase-lottery",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/users/2014182023/lotteries/123123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"users",
+						"2014182023",
+						"lotteries",
+						"123123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refund-lottery",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/users/2014182023/lotteries/933975",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"users",
+						"2014182023",
+						"lotteries",
+						"933975"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
