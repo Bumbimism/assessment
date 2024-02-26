@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.verify;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -42,8 +44,8 @@ public class UserTicketRepositoryTest {
     }
 
     @Test
-    @DisplayName("when query existsByUseridAndTicketId then return true")
-    void existsByUseridAndTicketId() {
+    @DisplayName("when query existsByUserIdAndTicketId then return true")
+    void existsByUserIdAndTicketId() {
 
         String userId = "2602202488";
         String ticketId = "123123";
@@ -52,11 +54,27 @@ public class UserTicketRepositoryTest {
         UserTicket userTicket = new UserTicket(userId,ticketId,price,amount);
 
         userTicketRepository.save(userTicket);
-        boolean exists = userTicketRepository.existsByUseridAndTicketId(userId,ticketId);
+        boolean exists = userTicketRepository.existsByUserIdAndTicketId(userId,ticketId);
 
         Assertions.assertTrue(exists);
 
     }
 
+    @Test
+    @DisplayName("when query refundLottery then return null from repository")
+    void RefundLottery() throws Exception{
 
+        String userId = "2602202488";
+        String ticketId = "123123";
+        int price = 80;
+        int amount = 1;
+        UserTicket userTicket = new UserTicket(userId,ticketId,price,amount);
+
+        userTicketRepository.save(userTicket);
+        userTicketRepository.refundLottery(userId,ticketId);
+        boolean found = userTicketRepository.existsByUserIdAndTicketId(userId,ticketId);
+
+        Assertions.assertFalse(found);
+
+    }
 }

@@ -90,11 +90,11 @@ public class LotteryServiceImpl implements LotteryApiService {
     @Transactional
     public LotteryResponse refundLottery(String userId, String ticketId) {
 
-        if (!userTicketRepository.existsByUseridAndTicketId(userId, ticketId)) {
+        if (!userTicketRepository.existsByUserIdAndTicketId(userId, ticketId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found Ticket");
 
         } else {
-            userTicketRepository.RefundLottery(userId, ticketId);
+            userTicketRepository.refundLottery(userId, ticketId);
             return new LotteryResponse(ticketId);
 
         }

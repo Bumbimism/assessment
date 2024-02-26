@@ -146,13 +146,13 @@ public class LotteryServiceTest {
         String ticketId = "123123";
         LotteryResponse ticket = new LotteryResponse(ticketId);
 
-        when(userTicketRepository.existsByUseridAndTicketId(userId, ticketId)).thenReturn(true);
+        when(userTicketRepository.existsByUserIdAndTicketId(userId, ticketId)).thenReturn(true);
         LotteryResponse found = lotteryService.refundLottery(userId, ticketId);
 
         Assertions.assertNotNull(ticket);
         Assertions.assertEquals(ticket, found);
 
-        verify(userTicketRepository).existsByUseridAndTicketId(userId, ticketId);
+        verify(userTicketRepository).existsByUserIdAndTicketId(userId, ticketId);
 
     }
 
@@ -163,11 +163,11 @@ public class LotteryServiceTest {
         String userId = "2602202488";
         String ticketId = "123123";
 
-        when(userTicketRepository.existsByUseridAndTicketId(userId, ticketId)).thenReturn(false);
+        when(userTicketRepository.existsByUserIdAndTicketId(userId, ticketId)).thenReturn(false);
 
         assertThrows(ResponseStatusException.class, () -> lotteryService.refundLottery(userId, ticketId));
 
-        verify(userTicketRepository, never()).RefundLottery(userId, ticketId);
+        verify(userTicketRepository, never()).refundLottery(userId, ticketId);
 
     }
 
