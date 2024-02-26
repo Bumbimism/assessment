@@ -24,6 +24,7 @@ import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class LotteryRepositoryTest {
+
     @Autowired
     LotteryRepository lotteryRepository;
 
@@ -34,7 +35,8 @@ class LotteryRepositoryTest {
     @Test
     @DisplayName("when query findAllLotteries then return lotteryList")
     void findAllLotteries() {
-        String[] lotteryList1 = {"123123","246824"} ;
+
+        String[] lotteryList1 = {"123123", "246824"};
         Lottery lottery1 = new Lottery("123123", 80, 1);
         Lottery lottery2 = new Lottery("246824", 80, 1);
 
@@ -46,4 +48,30 @@ class LotteryRepositoryTest {
         Assertions.assertArrayEquals(lotteryList1, lotteryList2);
     }
 
+    @Test
+    @DisplayName("when query findPriceByTicketId then return price")
+    void findPriceByTicketId() {
+
+        Lottery lottery = new Lottery("123123", 80, 1);
+
+        lotteryRepository.save(lottery);
+        int price = lotteryRepository.findPriceByTicketId(lottery.getTicketId());
+
+        assertNotNull(price);
+        Assertions.assertEquals(lottery.getPrice(), price);
+
+    }
+
+    @Test
+    @DisplayName("when query findPriceByTicketId then return price")
+    void existsByTicketId() {
+
+        Lottery lottery = new Lottery("123123", 80, 1);
+
+        lotteryRepository.save(lottery);
+        boolean exists = lotteryRepository.existsByTicketId(lottery.getTicketId());
+
+        Assertions.assertTrue(exists);
+
+    }
 }

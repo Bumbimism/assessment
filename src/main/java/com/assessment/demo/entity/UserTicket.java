@@ -28,9 +28,11 @@ public class UserTicket {
     }
 
     public UserTicket(String ticketId, int price, int amount) {
+
         this.ticketId = ticketId;
         this.price = price;
         this.amount = amount;
+
     }
 
     public UserTicket(String userId, String ticketId, int price, int amount) {
@@ -39,6 +41,6 @@ public class UserTicket {
         this.ticketId = ticketId;
         this.price = price;
         this.amount = amount;
-    }
 
+    }
 }

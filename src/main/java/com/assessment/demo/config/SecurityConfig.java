@@ -23,21 +23,26 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
+
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
+
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder().encode("password"))
                 .roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(admin);
+
     }
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
@@ -47,7 +52,8 @@ public class SecurityConfig {
                                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                                 .requestMatchers("/**").permitAll())
                 .httpBasic(withDefaults());
-        return http.build();
-    }
 
+        return http.build();
+
+    }
 }

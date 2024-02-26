@@ -19,6 +19,8 @@ public class AdminController {
     @PostMapping("/lotteries")
     @ResponseStatus(HttpStatus.CREATED)
     public LotteryResponse createLottery(@Validated @RequestBody LotteryRequest lotteryRequest) {
+
         return lotteryApiService.createLottery(lotteryRequest);
+
     }
 }

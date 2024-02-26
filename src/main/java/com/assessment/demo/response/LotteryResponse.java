@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class LotteryResponse {
+
     @JsonProperty("ticket")
     private String ticketId;
 

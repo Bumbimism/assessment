@@ -17,19 +17,25 @@ public class LotteryController {
 
     @GetMapping("/lotteries")
     public Object getAllLotteries() {
+
         return lotteryApiService.showAllLotteries();
+
     }
 
     @GetMapping("/users/{userId}/lotteries")
     public Object showUserLotteries(@PathVariable("userId") String userId) {
+
         return lotteryApiService.showUserLotteries(userId);
+
     }
 
     @PostMapping("/users/{userId}/lotteries/{ticketId}")
     @ResponseStatus(HttpStatus.CREATED)
     public TransactionIdResponse purchaseLottery(@PathVariable("userId") String userId,
                                                  @PathVariable("ticketId") String ticketId) {
+
         return lotteryApiService.purchaseLottery(userId, ticketId);
+
     }
 
 
@@ -37,6 +43,8 @@ public class LotteryController {
     @ResponseStatus(HttpStatus.OK)
     public LotteryResponse refundLottery(@PathVariable("userId") String userId,
                                          @PathVariable("ticketId") String ticketId) {
+
         return lotteryApiService.refundLottery(userId, ticketId);
+
     }
 }
