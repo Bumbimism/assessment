@@ -1,3 +1,12 @@
+## Note for me
+#### CMD TO RUN PROJECT
+1. run `./gradlew clean build` remark: no need to worry if build failed.
+2. run `docker build -f Dockerfile.multi -t demo-multi:latest . `
+3. run `docker-compose up`
+4. run DemoAppication or whatever you want.
+
+
+
 # ระบบย่อยซื้อลอตเตอรี่
 
 แอพพลิเคชั่นธนาคารต้องการเพิ่มฟีเจอร์ให้ผู้ใช้งานสามารถซื้อลอตเตอรี่ได้
@@ -206,11 +215,4 @@ name = "ชื่อตาราง") ไปที่ entity ได้ https://w
    ไม่ต้องทำเป็น env variable เหมือน datasource.url ใช่ไหมครับ
 
 ตอบ หมายถึงตรง config connection ของ database ใช่ไหมครับ ใช้เป็นอะไรก็ได้ ขอให้เชื่อมต่อได้ก็พอครับ
-
-## Note for me
-#### CMD TO RUN PROJECT
-1. run `./gradlew clean build` remark: no need to worry if build failed.
-2. run `docker build -f Dockerfile.multi -t demo-multi:latest . `
-3. run `docker-compose up`
-4. run DemoAppication or whatever you want.
 
