@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - "8888:8888"
+    networks:
+      - lotto-net
+    environment:
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/lotto
+    depends_on:
+      - db
+
   db:
     image: postgres:latest
     environment:
@@ -13,6 +25,9 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
-
+    networks:
+      - lotto-net
+networks:
+  lotto-net:
 volumes:
   pgdata:
