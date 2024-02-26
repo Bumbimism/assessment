@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
+@lombok.Generated
 @Data
 @Entity
 @Table(name = "lottery")
