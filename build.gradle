@@ -30,7 +30,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly('org.springframework.boot:spring-boot-starter-jdbc:3.2.2')
+    compileOnly 'org.springframework.boot:spring-boot-starter-jdbc:3.2.2'
 
     implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
 
@@ -43,12 +43,6 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 
     testImplementation 'org.mockito:mockito-junit-jupiter:5.10.0'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
-    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.10.2'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.2'
-    testImplementation 'org.junit.platform:junit-platform-runner:1.10.2'
 }
 
 

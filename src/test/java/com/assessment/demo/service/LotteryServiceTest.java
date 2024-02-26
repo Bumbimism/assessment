@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -82,10 +81,10 @@ public class LotteryServiceTest {
         int count = 2;
         int cost = 160;
 
-        when(userTicketRepository.findAllByUserId(userId)).thenReturn(Arrays.asList(ticket1,ticket2));
+        when(userTicketRepository.findAllByUserId(userId)).thenReturn(Arrays.asList(ticket1, ticket2));
         UserTicketResponse found = lotteryService.showUserLotteries(userId);
 
-        Assertions.assertEquals(new UserTicketResponse(tickets,count,cost),found);
+        Assertions.assertEquals(new UserTicketResponse(tickets, count, cost), found);
 
         verify(userTicketRepository).findAllByUserId(userId);
 
@@ -100,17 +99,17 @@ public class LotteryServiceTest {
         String ticketId = "123123";
         int price = 80;
         int amount = 1;
-        UserTicket userTicket = new UserTicket(userId,ticketId,price,amount);
+        UserTicket userTicket = new UserTicket(userId, ticketId, price, amount);
 
         when(lotteryRepository.existsByTicketId(ticketId)).thenReturn(true);
         when(lotteryRepository.findPriceByTicketId(ticketId)).thenReturn(price);
         doAnswer(invocation -> {
             ReflectionTestUtils
                     .setField((UserTicket) invocation
-                    .getArgument(0), "Id", Id);
+                            .getArgument(0), "Id", Id);
             return null;
         }).when(userTicketRepository).save(userTicket);
-        TransactionIdResponse id = lotteryService.purchaseLottery(userId,ticketId);
+        TransactionIdResponse id = lotteryService.purchaseLottery(userId, ticketId);
 
         Assertions.assertNotNull(id);
         Assertions.assertEquals("888", id.getId());
@@ -130,7 +129,7 @@ public class LotteryServiceTest {
 
         when(lotteryRepository.existsByTicketId(ticketId)).thenReturn(false);
 
-        assertThrows(ResponseStatusException.class, () -> lotteryService.purchaseLottery(userId, ticketId));
+        Assertions.assertThrows(ResponseStatusException.class, () -> lotteryService.purchaseLottery(userId, ticketId));
 
         verify(lotteryRepository).existsByTicketId(ticketId);
         verify(lotteryRepository, never()).findPriceByTicketId(ticketId);
@@ -165,7 +164,7 @@ public class LotteryServiceTest {
 
         when(userTicketRepository.existsByUserIdAndTicketId(userId, ticketId)).thenReturn(false);
 
-        assertThrows(ResponseStatusException.class, () -> lotteryService.refundLottery(userId, ticketId));
+        Assertions.assertThrows(ResponseStatusException.class, () -> lotteryService.refundLottery(userId, ticketId));
 
         verify(userTicketRepository, never()).refundLottery(userId, ticketId);
 

@@ -1,25 +1,14 @@
 package com.assessment.demo.repository;
 
 import com.assessment.demo.entity.Lottery;
-import com.assessment.demo.repository.LotteryRepository;
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.Assert.assertArrayEquals;
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 
 @DataJpaTest
