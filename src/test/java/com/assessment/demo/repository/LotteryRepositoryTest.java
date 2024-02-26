@@ -1,5 +1,6 @@
-package com.assessment.demo.entity;
+package com.assessment.demo.repository;
 
+import com.assessment.demo.entity.Lottery;
 import com.assessment.demo.repository.LotteryRepository;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Assertions;
