@@ -1,6 +1,6 @@
 ## Note for me
 #### CMD TO RUN PROJECT
-1. run `./gradlew clean build` remark: no need to worry if build failed.
+1. run `./gradlew clean build` .
 2. run `docker build -f Dockerfile.multi -t demo-multi:latest . `
 3. run `docker-compose up`
 4. run DemoApplication or whatever you want.
