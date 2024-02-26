@@ -209,9 +209,8 @@ name = "ชื่อตาราง") ไปที่ entity ได้ https://w
 
 ## Note for me
 #### CMD TO RUN PROJECT
-1. `docker build -f Dockerfile.multi -t demo-multi:latest . `
-2. `docker-compose up`
+1. run `./gradlew clean build` remark: no need to worry if build failed.
+2. run `docker build -f Dockerfile.multi -t demo-multi:latest . `
+3. run `docker-compose up`
+4. run DemoAppication or whatever you want.
 
-#### CMD TO TEST PROJECT
-* `docker-compose -f docker-compose.test.yml up --exit-code-from it_test`
-       if error run `docker system prune -a` then, `./gredlew wrapper` and `docker-compose -f docker-compose.test.yml up --exit-code-from it_test` 
