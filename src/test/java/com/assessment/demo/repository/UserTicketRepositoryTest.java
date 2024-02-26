@@ -1,5 +1,6 @@
 package com.assessment.demo.repository;
 
+import com.assessment.demo.entity.Lottery;
 import com.assessment.demo.entity.UserTicket;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +22,7 @@ public class UserTicketRepositoryTest {
     UserTicketRepository userTicketRepository;
 
     @Test
-    @DisplayName("when query findAllLotteries then return lotteryList")
+    @DisplayName("when query findAllByUserId then return List of User Ticket")
     void findAllByUserId() {
 
         Long Id = 1L;
@@ -40,7 +41,22 @@ public class UserTicketRepositoryTest {
 
     }
 
+    @Test
+    @DisplayName("when query existsByUseridAndTicketId then return true")
+    void existsByUseridAndTicketId() {
 
+        String userId = "2602202488";
+        String ticketId = "123123";
+        int price = 80;
+        int amount = 1;
+        UserTicket userTicket = new UserTicket(userId,ticketId,price,amount);
+
+        userTicketRepository.save(userTicket);
+        boolean exists = userTicketRepository.existsByUseridAndTicketId(userId,ticketId);
+
+        Assertions.assertTrue(exists);
+
+    }
 
 
 }
