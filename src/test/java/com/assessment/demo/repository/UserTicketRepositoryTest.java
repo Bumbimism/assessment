@@ -62,7 +62,7 @@ public class UserTicketRepositoryTest {
 
     @Test
     @DisplayName("when query refundLottery then return null from repository")
-    void RefundLottery() throws Exception{
+    void refundLottery() {
 
         String userId = "2602202488";
         String ticketId = "123123";
