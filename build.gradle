@@ -47,7 +47,7 @@ dependencies {
 
 sonar {
   properties {
-    property "sonar.projectKey", "hello"
+    property "sonar.projectKey", "demo"
   }
 }
 
